@@ -3,6 +3,7 @@
 
 #include "Node.h"
 #include <vector>
+#include <iostream>
 
 class AvlTree
 {
@@ -12,6 +13,7 @@ public:
     void Insert(int key);
     void Remove(int key);
     std::vector<int> GetKeys();
+    void PrintTree();
 
 private:
     Node* root;
@@ -23,6 +25,7 @@ private:
     static Node* RemoveMinKey(Node* treeRoot);
     static Node* RemoveKey(Node* treeRoot, int removedKey);
     static void TraverseTree(Node* treeRoot, std::vector<int>& vector);
+    static void PrintTree(const std::string& prefix, const Node* node, bool isLeft);
 };
 
 

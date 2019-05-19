@@ -1,6 +1,4 @@
 #include "AvlTree.h"
-#include <iostream>
-#include <vector>
 
 AvlTree::~AvlTree()
 {
@@ -37,6 +35,24 @@ void AvlTree::TraverseTree(Node* treeRoot, std::vector<int>& vector)
 
         treeRoot = treeRoot->rightSubtree;
     }
+}
+
+void AvlTree::PrintTree()
+{
+    if (root == nullptr)
+        std::cout << "Tree is empty." << std::endl;
+    else
+        PrintTree("", root, false);
+}
+
+void AvlTree::PrintTree(const std::string& prefix, const Node* node, bool isLeft)
+{
+    if (node == nullptr) return;
+
+    std::cout << prefix << (isLeft ? "├──" : "└──" ) << node->key << std::endl;
+
+    PrintTree(prefix + (isLeft ? "│   " : "    "), node->leftSubtree, true);
+    PrintTree(prefix + (isLeft ? "│   " : "    "), node->rightSubtree, false);
 }
 
 char AvlTree::CalculateBalanceFactor(Node* treeRoot)

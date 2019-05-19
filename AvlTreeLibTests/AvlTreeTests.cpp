@@ -2,6 +2,8 @@
 #include "../AvlTreeLib/AvlTree.h"
 #include <ctime>
 
+#define PRINT_TREE
+
 using namespace std;
 
 vector<int> GetRandomVector()
@@ -22,6 +24,22 @@ TEST(AvlTree, InsertOneKey)
 
     ASSERT_EQ(tree.GetKeys().size(), 1);
     ASSERT_EQ(tree.GetKeys()[0], 5);
+
+#ifdef PRINT_TREE
+    tree.PrintTree();
+#endif
+}
+
+TEST(AvlTree, CreateSimpleTree)
+{
+    auto tree = AvlTree();
+
+    for (int key : {1, 2, 3, 4, 5})
+        tree.Insert(key);
+
+#ifdef PRINT_TREE
+    tree.PrintTree();
+#endif
 }
 
 TEST(AvlTree, InsertAndReturnRandomVector)
@@ -36,19 +54,27 @@ TEST(AvlTree, InsertAndReturnRandomVector)
     sort(vector.begin(), vector.end());
 
     ASSERT_EQ(tree.GetKeys(), vector);
+
+#ifdef PRINT_TREE
+    tree.PrintTree();
+#endif
 }
 
 TEST(AvlTree, RemoveSomeKeys)
 {
     auto tree = AvlTree();
 
-    for (int key : { 1, 8, -4, 2, -7, 10, 3 })
+    for (int key : { 1, 8, 4, 2, 7, 10, 3 })
         tree.Insert(key);
 
     tree.Remove(8);
-    tree.Remove(-4);
+    tree.Remove(3);
 
-    ASSERT_EQ(tree.GetKeys(), (vector<int>{ -7, 1, 2, 3, 10 }));
+    ASSERT_EQ(tree.GetKeys(), (vector<int>{ 1, 2, 4, 7, 10 }));
+
+#ifdef PRINT_TREE
+    tree.PrintTree();
+#endif
 }
 
 TEST(AvlTree, RemoveAllKeys)
@@ -57,7 +83,7 @@ TEST(AvlTree, RemoveAllKeys)
 
     vector<int> vector = GetRandomVector();
     for (int i : vector)
-        tree.Insert(i);
+        tree.Insert(i);tree.PrintTree();
 
     random_shuffle(vector.begin(), vector.end());
 
@@ -67,6 +93,10 @@ TEST(AvlTree, RemoveAllKeys)
     vector.clear();
 
     ASSERT_EQ(tree.GetKeys(), vector);
+
+#ifdef PRINT_TREE
+    tree.PrintTree();
+#endif
 }
 
 TEST(AvlTree, ThrowOnWrongRemove)
@@ -78,4 +108,8 @@ TEST(AvlTree, ThrowOnWrongRemove)
     tree.Insert(6);
 
     ASSERT_THROW(tree.Remove(5), std::out_of_range);
+
+#ifdef PRINT_TREE
+    tree.PrintTree();
+#endif
 }
