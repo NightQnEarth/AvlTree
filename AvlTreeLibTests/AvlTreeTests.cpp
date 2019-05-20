@@ -10,7 +10,7 @@ vector<int> GetRandomVector()
 {
     srand(time(nullptr));
     vector<int> resultArray = vector<int>(rand() % 100 + 1);
-    for (int & i : resultArray)
+    for (int& i : resultArray)
         i = (rand() % 100);
 
     return resultArray;
@@ -36,6 +36,8 @@ TEST(AvlTree, CreateSimpleTree)
 
     for (int key : {1, 2, 3, 4, 5})
         tree.Insert(key);
+
+    ASSERT_EQ(tree.GetKeys(), (vector<int>{ 1, 2, 3, 4, 5 }));
 
 #ifdef PRINT_TREE
     tree.PrintTree();
