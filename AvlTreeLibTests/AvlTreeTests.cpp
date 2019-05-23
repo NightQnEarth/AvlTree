@@ -85,7 +85,7 @@ TEST(AvlTree, RemoveAllKeys)
 
     vector<int> vector = GetRandomVector();
     for (int i : vector)
-        tree.Insert(i);tree.PrintTree();
+        tree.Insert(i);
 
     random_shuffle(vector.begin(), vector.end());
 
